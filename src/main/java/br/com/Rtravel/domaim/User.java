@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,24 +21,26 @@ import br.com.Rtravel.enums.Perfil;
 @Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique=true)
 	private String email;
 
-	@JsonIgnore // Do not show password when retrieving data
+	@JsonIgnore  //Do not show password when retrieving data
 	private String senha;
-
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "PERFIS")
+	
+	@ElementCollection(fetch=FetchType.EAGER) //Sempre que buscar um usuário também pega seu perfil
+	@CollectionTable(name="PERFIS") //Nome da tabela de ligação entre usuario e perfil
 	private Set<Integer> perfis = new HashSet<>();
-
+		
+	
 	public User() {
 		addPerfil(Perfil.ADMIN);
 	}
-
 	public User(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
@@ -46,39 +49,39 @@ public class User implements Serializable {
 		this.senha = senha;
 		addPerfil(Perfil.ADMIN);
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
 	public String getNome() {
 		return nome;
 	}
-
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	public String getSenha() {
 		return senha;
 	}
-
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	
+	
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
@@ -94,7 +97,6 @@ public class User implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,4 +113,5 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+	
 }
