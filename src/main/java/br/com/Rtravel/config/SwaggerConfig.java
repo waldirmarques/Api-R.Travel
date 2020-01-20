@@ -22,7 +22,7 @@ public class SwaggerConfig {
  
 		docket
 		.select()
-		.apis(RequestHandlerSelectors.basePackage("br.com.Rtravel"))
+		.apis(RequestHandlerSelectors.basePackage("br.com.Rtravel")) //Coloca o pacote onde tem todas class java
 		.paths(PathSelectors.any())
 		.build()
 		.apiInfo(this.informacoesApi().build());
