@@ -35,9 +35,11 @@ public class SwaggerConfig {
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
  
 		apiInfoBuilder.title("Api-Rtravel");
-		apiInfoBuilder.description("Api para realização de um CRUD.");
+		apiInfoBuilder.description("Api que irá disponibilizar um ambiente de consulta de horários"
+				+ " de linhas de ônibus, disponibilizando  opções de compartilhamento e informações"
+				+ " por meio dos usuários.");
 		apiInfoBuilder.version("1.0");
-		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para estudos.");
+		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para busca de informações.");
 		apiInfoBuilder.license("Licença - Open Source");
 		apiInfoBuilder.licenseUrl("http://www.rtravel.com.br");
 		apiInfoBuilder.contact(this.contato());
@@ -48,8 +50,8 @@ public class SwaggerConfig {
 	private Contact contato() {
  
 		return new Contact(
-				"Waldir Marques",
+				"Suporte Rtravel",
 				"http://www.rtravel.com.br", 
-				"waldirmarques90@gmail.com");
+				"suporte.rtravel@gmail.com");
 	}
 }
