@@ -35,11 +35,9 @@ public class SwaggerConfig {
 		ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
  
 		apiInfoBuilder.title("Api-Rtravel");
-		apiInfoBuilder.description("Api que irá disponibilizar um ambiente de consulta de horários"
-				+ " de linhas de ônibus, disponibilizando  opções de compartilhamento e informações"
-				+ " por meio dos usuários.");
+		apiInfoBuilder.description(this.descricao());
 		apiInfoBuilder.version("1.0");
-		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para busca de informações.");
+		apiInfoBuilder.termsOfServiceUrl("Termo de uso: Deve ser usada para busca de informações de ônibus.");
 		apiInfoBuilder.license("Licença - Open Source");
 		apiInfoBuilder.licenseUrl("http://www.rtravel.com.br");
 		apiInfoBuilder.contact(this.contato());
@@ -54,4 +52,16 @@ public class SwaggerConfig {
 				"http://www.rtravel.com.br", 
 				"suporte.rtravel@gmail.com");
 	}
+	
+	private String descricao() {
+		
+		return "Bem vindo à Api-Rtravel!\n\n"
+				+ "Esta versão pode entregar dados puros em formatos JSON, e tenta se aderir ao máximo à arquitetura REST.\n" 
+				+ "Nesta página você pode conhecer e experimentar as URLs de acesso aos dados, os parâmetros de query string\n"
+				+ "que podem ser aplicados para filtrar e selecionar resultados, e as estruturas de dados que são retornadas.\n"
+				+ "Por padrão, todos os serviços de listagens retornam 15 itens, e o limite por requisição é de 100 itens.\n"
+				+ "ATENÇÃO: Esta versão ainda está incompleta, sujeita a mudanças. Caso você encontre problemas ou queira dar\n"
+				+ "sugestões, por favor entre em contato.";
+	}
+	
 }

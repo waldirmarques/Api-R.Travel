@@ -41,6 +41,7 @@ public class User implements Serializable {
 	public User() {
 		addPerfil(Perfil.ADMIN);
 	}
+	
 	public User(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;

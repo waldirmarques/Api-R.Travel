@@ -26,7 +26,11 @@ public class DBService {
 		User userAdmin = new User(null,"MainAdmin","admin@gmail.com",pe.encode("admin"));
 		userAdmin.addPerfil(Perfil.ADMIN);
 		
+		User user1 = new User(null,"Waldir Marques","waldir@gmail.com",pe.encode("normal"));
+		user1.addPerfil(Perfil.USER);
+		
 		userRepository.saveAll(Arrays.asList(userAdmin));
+		userRepository.saveAll(Arrays.asList(user1));
 		
 		
 	}

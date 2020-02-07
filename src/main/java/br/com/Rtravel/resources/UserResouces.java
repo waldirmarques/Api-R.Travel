@@ -21,92 +21,42 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.Rtravel.domaim.User;
 import br.com.Rtravel.dto.UserDTO;
 import br.com.Rtravel.services.UserService;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/user")
-@Api(value = "API Rest Rtravel")
 @CrossOrigin(origins="*") //Todo dominio pode acessar essa api
 public class UserResouces {
 	
 	@Autowired
 	private UserService service;
 	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	
+	@ApiOperation(value = "Seleciona usuário por id")
+	@RequestMapping(value="/{id}", method = RequestMethod.GET) //lista usuário por id
 	public ResponseEntity<User> find(@PathVariable Integer id){
 		User obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@RequestMapping(value="/email", method=RequestMethod.GET)
+	@ApiOperation(value = "Seleciona usuário por email")
+	@RequestMapping(value="/email", method=RequestMethod.GET) //lista usuário por email
 	public ResponseEntity<User> find(@RequestParam(value="value") String email) {
 		User obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	//@PreAuthorize("hasAnyRole('ADMIN')") //--> Essa anotação obriga um usuario está logado para acessar esse endpoint
-	@RequestMapping(method=RequestMethod.POST) //adiciona uma nova categoria
-	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDto){// throws ObjectNotFoundException{
-		User obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
-				buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
-	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //atualizar uma categoria
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
-		User obj = service.fromDTO(objDto);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
-	
-	/*
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/password/{id}",method=RequestMethod.PATCH) //update a password ADM
-	public ResponseEntity<Void> update(@Valid @RequestBody PasswordDTO passwordDto, @PathVariable Integer id) throws ObjectNotFoundException{
-		PasswordDTO objDTO = service.passwordDTO(passwordDto);
-		service.update(objDTO);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/name/{id}",method=RequestMethod.PATCH) //update name ADM
-	public ResponseEntity<Void> update(@Valid @RequestBody NomeDTO nomeDto, @PathVariable Integer id) throws ObjectNotFoundException{
-		NomeDTO objDTO = service.nomeDTO(nomeDto);
-		service.update(objDTO);
-		return ResponseEntity.noContent().build();
-	}
-	*/
-	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/nome/{id}",method=RequestMethod.PATCH) //atualizar uma categoria
-	public ResponseEntity<Void> updateName(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
-		User obj = service.fromDTO(objDto);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
-	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE) //Deleta categoria
-	public ResponseEntity<Void> delete(@PathVariable Integer id) throws ObjectNotFoundException {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method = RequestMethod.GET) //lista todas as categoria
+	@ApiOperation(value = "Seleciona todos os usuários do sistema")
+	@RequestMapping(method = RequestMethod.GET) //lista todos os usuário
 	public ResponseEntity<List<UserDTO>> findPage() {
 		List<User> list = service.findAll();
 		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value = "/page", method = RequestMethod.GET) //lista todas as categoria
+	@ApiOperation(value = "Seleciona usuário com paginação")
+	@RequestMapping(value = "/page", method = RequestMethod.GET) //lista todas os usuários
 	public ResponseEntity<Page<UserDTO>> findAll(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
@@ -116,5 +66,30 @@ public class UserResouces {
 		Page<UserDTO> listDTO = list.map(obj -> new UserDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 	}
-
+	
+	@ApiOperation(value = "Adiciona novo usuário")
+	@RequestMapping(method=RequestMethod.POST) //adiciona um novo usuário
+	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDto){
+		User obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
+				buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@ApiOperation(value = "Atualiza usuário por id")
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //atualizar uma usuário
+	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
+		User obj = service.fromDTO(objDto);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@ApiOperation(value = "Deleta usuário por id")
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE) //Deleta usuário
+	public ResponseEntity<Void> delete(@PathVariable Integer id) throws ObjectNotFoundException {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
