@@ -2,6 +2,7 @@ package br.com.Rtravel.config;
 
 import java.util.Arrays;
 
+import br.com.Rtravel.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ import br.com.Rtravel.security.JWTUtil;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends  WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	

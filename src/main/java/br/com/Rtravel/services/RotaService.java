@@ -51,7 +51,7 @@ public class RotaService {
 	private void updateData(Rota newObj, Rota obj) {
 		newObj.setCidadeDestino(obj.getCidadeDestino());
 		newObj.setCidadeOrigem(obj.getCidadeOrigem());
-		newObj.setParada(obj.getParada());
+		newObj.setParada(obj.getParadas());
 	}
 
 	public void delete(Long id){

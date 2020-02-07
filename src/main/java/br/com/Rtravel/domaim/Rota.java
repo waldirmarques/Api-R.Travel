@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -22,29 +24,27 @@ public class Rota implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	//@JsonIgnore
-	//@ManyToOne
-	//@JoinColumn(name="cidadeOrigem_id")
+	@ManyToOne
+	@JoinColumn(name="cidadeOrigem_id")
 	private Cidade cidadeOrigem;
 	
-	//@JsonIgnore
-	//@ManyToOne
-	//@JoinColumn(name="cidadeDestino_id")
+	@ManyToOne
+	@JoinColumn(name="cidadeDestino_id")
 	private Cidade cidadeDestino;
 	
-	//@JsonIgnore //Cola-se essa anotação do lado que é para vir os produtos
-	//@ManyToMany(mappedBy = "rotas")
-	private List<Parada> parada = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
+	private List<Parada> paradas;
 	
 	public Rota() {}
 	
 
-	public Rota(Long id, Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> parada) {
+	public Rota(Long id, Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
 		super();
 		this.id = id;
 		this.cidadeOrigem = cidadeOrigem;
 		this.cidadeDestino = cidadeDestino;
-		this.parada = parada;
+		this.paradas = paradas;
 	}
 
 
@@ -67,11 +67,11 @@ public class Rota implements Serializable {
 	public void setCidadeDestino(Cidade cidadeDestino) {
 		this.cidadeDestino = cidadeDestino;
 	}
-	public List<Parada> getParada() {
-		return parada;
+	public List<Parada> getParadas() {
+		return paradas;
 	}
-	public void setParada(List<Parada> parada) {
-		this.parada = parada;
+	public void setParada(List<Parada> paradas) {
+		this.paradas = paradas;
 	}
 
 	@Override
