@@ -80,38 +80,6 @@ public class UserService {
 		newObj.setNome(obj.getNome());
 	}
 	
-	/*
-	private void updateNome(User newObj, NomeDTO obj) {
-		newObj.setId(obj.getId());
-		newObj.setNome(obj.getNome());
-	}
-	
-	private void updatePassword(User newObj,PasswordDTO obj) {
-		newObj.setId(obj.getId());
-		newObj.setSenha(obj.getSenha());
-	}
-	
-	public User update(PasswordDTO obj) throws ObjectNotFoundException {		
-		User newObj = find(obj.getId());
-		updatePassword(newObj,obj);
-		return repo.save(newObj);
-	}
-	
-	public User update(NomeDTO obj) throws ObjectNotFoundException {		
-		User newObj = find(obj.getId());
-		updateNome(newObj,obj);
-		return repo.save(newObj);
-	}
-	
-	public NomeDTO nomeDTO(NomeDTO nomeDto) {
-		return new NomeDTO(nomeDto.getId(), nomeDto.getNome());
-	}	
-
-	public PasswordDTO passwordDTO(PasswordDTO objDto) {		
-		return new PasswordDTO(objDto.getId(), pe.encode(objDto.getSenha()));
-	}
-	*/
-	
 	public User findByEmail(String email){
 		
 		UserSS user = UserServiceService.authenticated();
