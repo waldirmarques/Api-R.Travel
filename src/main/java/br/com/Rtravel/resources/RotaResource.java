@@ -72,8 +72,10 @@ public class RotaResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
 	public ResponseEntity<Void> update(@Valid @RequestBody RotaDTO objDto, @PathVariable Long id)
 			throws ObjectNotFoundException {
+
 		Rota obj = service.fromDTO(objDto);
-		obj = service.update(obj);
+		obj.setId(id);
+		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 
