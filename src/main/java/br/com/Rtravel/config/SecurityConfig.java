@@ -2,6 +2,7 @@ package br.com.Rtravel.config;
 
 import java.util.Arrays;
 
+import br.com.Rtravel.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ import br.com.Rtravel.security.JWTUtil;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends  WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -55,8 +56,8 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = { //dpoint array that a non-logged in user can only retrieve data from
-			//"/user/**"]
-			"/property/**",
+			"/user/**",
+			"/property/**"
 			
 			//Aqui pode colocar os endpoints separados por virgula 
 	};
@@ -64,9 +65,18 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 			"/user/**",
 			"/auth/forgot/**"
 	};
+	
+	private static final String[] PUBLIC_MATCHERS_PUT = { //Endpoint array that a non-logged in user can only add data to	
+			"/user/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_DELETE = { //Endpoint array that a non-logged in user can only add data to	
+			"/user/**"
+	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		
+	
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 			http.authorizeRequests()
@@ -74,9 +84,12 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 		}
     
 		http.cors().and().csrf().disable();  //desativa função que protege contra ataque de armazenamento de em seção
+		
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_POST).permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+			.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
+			.antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();  //Request authentication for remaining endpoints
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
@@ -101,6 +114,7 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder();
 	}
 	
+	
 	@Bean
 	public CorsFilter corsFilter() {
 	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -118,4 +132,5 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	    source.registerCorsConfiguration("/**", config);
 	    return new CorsFilter(source);
 	}
+	
 }
