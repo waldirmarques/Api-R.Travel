@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/rotas")
+@RequestMapping(value = "/api/v1/rotas")
 @CrossOrigin(origins = "*") // Todo dominio pode acessar essa api
 public class RotaResource {
 
