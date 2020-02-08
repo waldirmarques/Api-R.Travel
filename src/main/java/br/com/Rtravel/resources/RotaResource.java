@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class RotaResource {
 	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
 	public ResponseEntity<List<RotaDTO>> findPage() {
 		List<Rota> list = service.findAll();
-		List<RotaDTO> listDTO = list.stream().map(obj -> new RotaDTO()).collect(Collectors.toList());
+		List<RotaDTO> listDTO = list.stream().map(obj -> new RotaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 
@@ -54,13 +55,13 @@ public class RotaResource {
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Rota> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<RotaDTO> listDTO = list.map(obj -> new RotaDTO());
+		Page<RotaDTO> listDTO = list.map(obj -> new RotaDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@ApiOperation(value = "Adiciona novo usuário")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
-	public ResponseEntity<Void> insert(@Valid @RequestBody RotaDTO objDto) {
+	public ResponseEntity<Rota> insert(@Valid @RequestBody RotaDTO objDto) {
 		Rota obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
