@@ -42,7 +42,7 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 			"/h2-console/**",
 			"/property/**",
 			"/property/1/**",
-			"/*",
+			"/**",
 			
 	};
 	
