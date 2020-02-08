@@ -42,7 +42,7 @@ public class RotaResource {
 
 	@ApiOperation(value = "Seleciona todas as rotas do sistema")
 	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
-	public ResponseEntity<List<RotaDTO>> findPage() {
+	public ResponseEntity<List<RotaDTO>> findAll() {
 		List<Rota> list = service.findAll();
 		List<RotaDTO> listDTO = list.stream().map(obj -> new RotaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
@@ -50,7 +50,7 @@ public class RotaResource {
 
 	@ApiOperation(value = "Seleciona usuário com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
-	public ResponseEntity<Page<RotaDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<RotaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
