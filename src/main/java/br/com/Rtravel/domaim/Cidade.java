@@ -66,10 +66,10 @@ public class Cidade implements Serializable {
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public Double getDoubleitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setDoubleitude(Double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
