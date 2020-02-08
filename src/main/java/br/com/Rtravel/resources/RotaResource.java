@@ -47,7 +47,7 @@ public class RotaResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
-	@ApiOperation(value = "Seleciona usuário com paginação")
+	@ApiOperation(value = "Seleciona rota com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
 	public ResponseEntity<Page<RotaDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -58,7 +58,7 @@ public class RotaResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
-	@ApiOperation(value = "Adiciona novo usuário")
+	@ApiOperation(value = "Adiciona nova rota")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
 	public ResponseEntity<Void> insert(@Valid @RequestBody RotaDTO objDto) {
 		Rota obj = service.fromDTO(objDto);
@@ -67,7 +67,7 @@ public class RotaResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@ApiOperation(value = "Atualiza usuário por id")
+	@ApiOperation(value = "Atualiza rota por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
 	public ResponseEntity<Void> update(@Valid @RequestBody RotaDTO objDto, @PathVariable Long id)
 			throws ObjectNotFoundException {
@@ -76,7 +76,7 @@ public class RotaResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@ApiOperation(value = "Deleta usuário por id")
+	@ApiOperation(value = "Deleta rota por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta usuário
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws ObjectNotFoundException {
 		service.delete(id);

@@ -2,7 +2,6 @@ package br.com.Rtravel.config;
 
 import java.util.Arrays;
 
-import br.com.Rtravel.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,8 +41,7 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	private static final String[] PUBLIC_MATCHERS = { //Arraay dos endpoint que vão ser permitidos os acessos
 			"/h2-console/**",
 			"/property/**",
-			"/property/1/**"
-			
+			"/property/1/**"			
 	};
 	
 	private static final String[] PUBLIC_SWAGGER_TEST= {
@@ -57,26 +55,31 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	
 	private static final String[] PUBLIC_MATCHERS_GET = { //dpoint array that a non-logged in user can only retrieve data from
 			"/user/**",
-			"/property/**"
+			"/property/**",
+			"/rotas/**"
 			
 			//Aqui pode colocar os endpoints separados por virgula 
 	};
 	private static final String[] PUBLIC_MATCHERS_POST = { //Endpoint array that a non-logged in user can only add data to	
 			"/user/**",
+			"/rotas/**",
 			"/auth/forgot/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**"
+			"/user/**",
+			"/rotas/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_DELETE = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**"
+			"/user/**",
+			"/rotas/**"
 	};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-	
+		
+		System.out.println("\n\n\n\nTestaando aplicação aqui\n\n\n");
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 			http.authorizeRequests()
