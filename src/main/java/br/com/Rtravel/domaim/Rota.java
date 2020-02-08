@@ -1,50 +1,39 @@
 package br.com.Rtravel.domaim;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 @Entity
 public class Rota implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private Long id;
-	
-	//@JsonIgnore
-	//@ManyToOne
-	//@JoinColumn(name="cidadeOrigem_id")
-	private Cidade cidadeOrigem;
-	
-	//@JsonIgnore
-	//@ManyToOne
-	//@JoinColumn(name="cidadeDestino_id")
-	private Cidade cidadeDestino;
-	
-	//@JsonIgnore //Cola-se essa anotação do lado que é para vir os produtos
-	//@ManyToMany(mappedBy = "rotas")
-	private List<Parada> parada = new ArrayList<>();
-	
+
+	@ManyToMany
+	@JoinTable(name = "ROTA_CIDADE", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "cidade_id"))
+	private List<Cidade> cidades;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
+	private List<Parada> paradas;
+
+	private Date horarioSaida;
+
+	private Date horarioChegadda;
+
 	public Rota() {}
 	
 
-	public Rota(Long id, Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> parada) {
+	public Rota(Long id,List<Cidade> cidades, List<Parada> paradas) {
 		super();
 		this.id = id;
-		this.cidadeOrigem = cidadeOrigem;
-		this.cidadeDestino = cidadeDestino;
-		this.parada = parada;
+		this.cidades = cidades;
+		this.paradas = paradas;
 	}
 
 
@@ -55,23 +44,28 @@ public class Rota implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Cidade getCidadeOrigem() {
-		return cidadeOrigem;
+
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
-	public void setCidadeOrigem(Cidade cidadeOrigem) {
-		this.cidadeOrigem = cidadeOrigem;
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
 	}
-	public Cidade getCidadeDestino() {
-		return cidadeDestino;
+
+	public List<Parada> getParadas() {
+		return paradas;
 	}
-	public void setCidadeDestino(Cidade cidadeDestino) {
-		this.cidadeDestino = cidadeDestino;
+	public void setParadas(List<Parada> paradas) {
+		this.paradas = paradas;
 	}
-	public List<Parada> getParada() {
-		return parada;
+
+	public Date getHorarioSaida() {
+		return horarioSaida;
 	}
-	public void setParada(List<Parada> parada) {
-		this.parada = parada;
+
+	public void setHorarioSaida(Date horarioSaida) {
+		this.horarioSaida = horarioSaida;
 	}
 
 	@Override
@@ -97,6 +91,16 @@ public class Rota implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
+	}
+
+	@Override
+	public String toString() {
+		return "Rota{" +
+				"id=" + id +
+				", cidades=" + cidades +
+				", paradas=" + paradas +
+				", horarioSaida=" + horarioSaida +
+				", horarioChegadda=" + horarioChegadda +
+				'}';
+	}
 }
