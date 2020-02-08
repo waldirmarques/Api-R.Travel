@@ -13,7 +13,7 @@ import br.com.Rtravel.security.UserSS;
 import br.com.Rtravel.services.UserServiceService;
 
 @RestController
-@RequestMapping(value = "/api/v1/auth")
+@RequestMapping(value = "/api.rtravel/v1/auth")
 public class AuthResource { //This class renews the token so you don't have to log in multiple times.	
 	
 	@Autowired
