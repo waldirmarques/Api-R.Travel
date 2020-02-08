@@ -3,6 +3,8 @@ package br.com.Rtravel.services;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.Rtravel.repositories.CidadeRepository;
+import br.com.Rtravel.repositories.ParadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -25,7 +27,13 @@ public class RotaService {
 	
 	@Autowired //Essa anotação faz com que o objeto seja estanciado assim como está.
 	private RotaRepository repo;
-	
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ParadaRepository paradaRepository;
+
 	public Rota find(Long id) throws ObjectNotFoundException {		
 		Optional<Rota> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -39,6 +47,8 @@ public class RotaService {
 	@Transactional
 	public Rota insert(Rota obj) {
 		obj.setId(null);
+		cidadeRepository.saveAll(obj.getCidades());
+		paradaRepository.saveAll(obj.getParadas());
 		return repo.save(obj);
 	}
 
@@ -49,9 +59,10 @@ public class RotaService {
 	}
 
 	private void updateData(Rota newObj, Rota obj) {
-		newObj.setCidadeDestino(obj.getCidadeDestino());
-		newObj.setCidadeOrigem(obj.getCidadeOrigem());
-		newObj.setParada(obj.getParada());
+
+		newObj.setCidades(obj.getCidades());
+		newObj.setParadas(obj.getParadas());
+
 	}
 
 	public void delete(Long id){
@@ -68,9 +79,10 @@ public class RotaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-	
+
 	public Rota fromDTO(RotaDTO objDto) {
-		return new Rota(objDto.getId(),objDto.getCidadeDestino(), objDto.getCidadeOrigem(), objDto.getParada());
+		return new Rota(objDto.getId(),objDto.getCidades(), objDto.getParadas());
 	}
+
 
 }
