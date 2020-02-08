@@ -28,12 +28,6 @@ public class RotaService {
 	@Autowired //Essa anotação faz com que o objeto seja estanciado assim como está.
 	private RotaRepository repo;
 
-	@Autowired
-	private CidadeRepository cidadeRepository;
-
-	@Autowired
-	private ParadaRepository paradaRepository;
-
 	public Rota find(Long id) throws ObjectNotFoundException {		
 		Optional<Rota> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -47,24 +41,13 @@ public class RotaService {
 	@Transactional
 	public Rota insert(Rota obj) {
 		obj.setId(null);
-		cidadeRepository.saveAll(obj.getCidades());
-		paradaRepository.saveAll(obj.getParadas());
 		return repo.save(obj);
 	}
 
 	public Rota update(Rota obj){
-		Rota newObj = find(obj.getId());
-		updateData(newObj,obj);
+		find(obj.getId()); //verifica se o objeto existe
 		return repo.save(obj);
 	}
-
-	private void updateData(Rota newObj, Rota obj) {
-
-		newObj.setCidades(obj.getCidades());
-		newObj.setParadas(obj.getParadas());
-
-	}
-
 	public void delete(Long id){
 		find(id);
 		try {
