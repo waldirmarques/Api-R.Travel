@@ -38,10 +38,11 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	private static final String[] PUBLIC_MATCHERS = { //Arraay dos endpoint que vão ser permitidos os acessos
+	private static final String[] PUBLIC_MATCHES = { //Arraay dos endpoint que vão ser permitidos os acessos
 			"/h2-console/**",
 			"/property/**",
-			"/property/1/**"
+			"/property/1/**",
+			"/*",
 			
 	};
 	
@@ -66,11 +67,11 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**"
+			"/user/**",
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_DELETE = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**"
+			"/user/**",
 	};
 	
 	@Override
@@ -89,7 +90,7 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 			.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
 			.antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
-			.antMatchers(PUBLIC_MATCHERS).permitAll()
+			.antMatchers(PUBLIC_MATCHES).permitAll()
 			.anyRequest().authenticated();  //Request authentication for remaining endpoints
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
