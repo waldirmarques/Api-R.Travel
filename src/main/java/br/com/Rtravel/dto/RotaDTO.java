@@ -11,14 +11,16 @@ public class RotaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private List<Cidade> cidades;
+	private Cidade cidadeOrigem;
+	private Cidade cidadeDestino;
 	private List<Parada> paradas;
 	
 	public RotaDTO() {}
 	
 	public RotaDTO(Rota rota) {
 		this.id = rota.getId();
-		this.cidades = rota.getCidades();
+		this.cidadeOrigem = rota.getCidadeOrigem();
+		this.cidadeDestino = rota.getCidadeDestino();
 		this.paradas = rota.getParadas();
 	}
 
@@ -29,12 +31,20 @@ public class RotaDTO implements Serializable{
 		this.id = id;
 	}
 
-	public List<Cidade> getCidades() {
-		return cidades;
+	public Cidade getCidadeOrigem() {
+		return cidadeOrigem;
 	}
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
+	public void setCidadeOrigem(Cidade cidadeOrigem) {
+		this.cidadeOrigem = cidadeOrigem;
+	}
+
+	public Cidade getCidadeDestino() {
+		return cidadeDestino;
+	}
+
+	public void setCidadeDestino(Cidade cidadeDestino) {
+		this.cidadeDestino = cidadeDestino;
 	}
 
 	public List<Parada> getParadas() {
@@ -48,8 +58,9 @@ public class RotaDTO implements Serializable{
 	public String toString() {
 		return "RotaDTO{" +
 				"id=" + id +
-				", cidades=" + cidades +
-				", parada=" + paradas +
+				", cidadeOrigem=" + cidadeOrigem +
+				", cidadeDestino=" + cidadeDestino +
+				", paradas=" + paradas +
 				'}';
 	}
 }
