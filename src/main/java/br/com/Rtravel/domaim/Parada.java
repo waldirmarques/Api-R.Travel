@@ -3,11 +3,17 @@ package br.com.Rtravel.domaim;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
-
-import java.util.Date;
 import java.util.List;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Parada implements Serializable {
@@ -39,33 +45,50 @@ public class Parada implements Serializable {
 		this.longitude = longitude;
 	}
 
+
 	public Long getId() {
 		return id;
 	}
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 	public String getPontoReferencia() {
 		return pontoReferencia;
 	}
+
+
 	public void setPontoReferencia(String pontoReferencia) {
 		this.pontoReferencia = pontoReferencia;
 	}
+
+
 	public String getUrl() {
 		return url;
 	}
+
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+
 	public Double getLatitude() {
 		return latitude;
 	}
+
+
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
+
 	public Double getLongitude() {
 		return longitude;
 	}
+
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
@@ -78,4 +101,5 @@ public class Parada implements Serializable {
 	public void setRotas(List<Rota> rotas) {
 		this.rotas = rotas;
 	}
+
 }

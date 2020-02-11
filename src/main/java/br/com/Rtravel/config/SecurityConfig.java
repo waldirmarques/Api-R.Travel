@@ -28,7 +28,7 @@ import br.com.Rtravel.security.JWTUtil;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends  WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -56,27 +56,23 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = { //dpoint array that a non-logged in user can only retrieve data from
-			"/user/**",
-			"/property/**"
-			
-			//Aqui pode colocar os endpoints separados por virgula 
+
 	};
 	private static final String[] PUBLIC_MATCHERS_POST = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**",
-			"/auth/forgot/**"
+    
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**",
+			
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_DELETE = { //Endpoint array that a non-logged in user can only add data to	
-			"/user/**",
+	
 	};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-	
+		
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 			http.authorizeRequests()

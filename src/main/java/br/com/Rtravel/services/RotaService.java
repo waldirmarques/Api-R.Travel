@@ -48,6 +48,13 @@ public class RotaService {
 		find(obj.getId()); //verifica se o objeto existe
 		return repo.save(obj);
 	}
+
+	private void updateData(Rota newObj, Rota obj) {
+		newObj.setCidadeDestino(obj.getCidadeDestino());
+		newObj.setCidadeOrigem(obj.getCidadeOrigem());
+		newObj.setParada(obj.getParadas());
+	}
+
 	public void delete(Long id){
 		find(id);
 		try {
