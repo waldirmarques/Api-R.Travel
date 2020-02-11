@@ -23,8 +23,8 @@ public class Parada implements Serializable {
 	private Long id;
 	private String pontoReferencia;
 	private String url;
-	private Double latitude;
-	private Double longitude;
+	private String latitude;
+	private String longitude;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "paradas", fetch = FetchType.EAGER)
@@ -35,7 +35,7 @@ public class Parada implements Serializable {
 	public Parada() {}
 	
 	
-	public Parada(Long id, String pontoReferencia, String url, Double latitude, Double longitude) {
+	public Parada(Long id, String pontoReferencia, String url, String latitude, String longitude) {
 		super();
 		this.id = id;
 		this.pontoReferencia = pontoReferencia;
@@ -75,20 +75,20 @@ public class Parada implements Serializable {
 	}
 
 
-	public Double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
 
-	public void setLatitude(Double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
-	public Double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Double longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 
