@@ -2,7 +2,6 @@ package br.com.Rtravel.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,67 +17,64 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.Rtravel.domaim.Rota;
-import br.com.Rtravel.dto.RotaDTO;
-import br.com.Rtravel.services.RotaService;
+import br.com.Rtravel.domaim.Parada;
+import br.com.Rtravel.services.ParadaService;
 import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/api.rtravel/v1/rotas")
-@CrossOrigin(origins = "*") // Todo dominio pode acessar essa api
-public class RotaResource {
-
+@RequestMapping(value = "/api.rtravel/v1/paradas")
+@CrossOrigin(origins = "*")
+public class ParadaResource {
+	
 	@Autowired
-	private RotaService service;
+	private ParadaService service;
 
-	@ApiOperation(value = "Seleciona rota por id")
+	@ApiOperation(value = "Seleciona parada por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // lista usuário por id
-	public ResponseEntity<Rota> find(@PathVariable Long id) {
-		Rota obj = service.find(id);
+	public ResponseEntity<Parada> find(@PathVariable Long id) {
+		Parada obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@ApiOperation(value = "Seleciona todas as rotas do sistema")
+	@ApiOperation(value = "Seleciona todas as paradas do sistema")
 	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
-	public ResponseEntity<List<RotaDTO>> findAll() {
-		List<Rota> list = service.findAll();
-		List<RotaDTO> listDTO = list.stream().map(obj -> new RotaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+	public ResponseEntity<List<Parada>> findAll() {
+		List<Parada> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Seleciona rota com paginação")
+	@ApiOperation(value = "Seleciona parada com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
-	public ResponseEntity<Page<RotaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<Parada>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Rota> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<RotaDTO> listDTO = list.map(obj -> new RotaDTO(obj));
-		return ResponseEntity.ok().body(listDTO);
+		Page<Parada> list = service.findPage(page, linesPerPage, orderBy, direction);
+		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Adiciona nova rota")
+	@ApiOperation(value = "Adiciona nova parada")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
-	public ResponseEntity<Rota> insert(@Valid @RequestBody RotaDTO objDto) {
-		Rota obj = service.fromDTO(objDto);
+	public ResponseEntity<Parada> insert(@Valid @RequestBody Parada objDto) {
+		Parada obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
-	@ApiOperation(value = "Atualiza rota por id")
+	@ApiOperation(value = "Atualiza parada por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
-	public ResponseEntity<Void> update(@Valid @RequestBody RotaDTO objDto, @PathVariable Long id)
+	public ResponseEntity<Void> update(@Valid @RequestBody Parada objDto, @PathVariable Long id)
 			throws ObjectNotFoundException {
 
-		Rota obj = service.fromDTO(objDto);
+		Parada obj = service.fromDTO(objDto);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 
-	@ApiOperation(value = "Deleta rota por id")
+	@ApiOperation(value = "Deleta parada por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta usuário
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws ObjectNotFoundException {
 		service.delete(id);

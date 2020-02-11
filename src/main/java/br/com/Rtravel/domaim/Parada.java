@@ -1,10 +1,9 @@
 package br.com.Rtravel.domaim;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -100,6 +99,16 @@ public class Parada implements Serializable {
 
 	public void setRotas(List<Rota> rotas) {
 		this.rotas = rotas;
+	}
+
+
+	public Date getHorarioChegada() {
+		return horarioChegada;
+	}
+
+
+	public void setHorarioChegada(Date horarioChegada) {
+		this.horarioChegada = horarioChegada;
 	}
 
 }
