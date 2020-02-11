@@ -1,5 +1,7 @@
 package br.com.Rtravel.domaim;
 
+import org.hibernate.annotations.Target;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +16,13 @@ public class Rota implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToMany
-	@JoinTable(name = "ROTA_CIDADE", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "cidade_id"))
-	private List<Cidade> cidades;
+	@ManyToOne
+	@JoinColumn(name = "cidadeOrigem_id")
+	private Cidade cidadeOrigem;
+
+	@ManyToOne
+	@JoinColumn(name = "cidadeDestino_id")
+	private Cidade cidadeDestino;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
@@ -24,15 +30,16 @@ public class Rota implements Serializable {
 
 	private Date horarioSaida;
 
-	private Date horarioChegadda;
+	private Date horarioChegada;
 
 	public Rota() {}
 	
 
-	public Rota(Long id,List<Cidade> cidades, List<Parada> paradas) {
+	public Rota(Long id,Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
 		super();
 		this.id = id;
-		this.cidades = cidades;
+		this.cidadeOrigem = cidadeOrigem;
+		this.cidadeDestino = cidadeDestino;
 		this.paradas = paradas;
 	}
 
@@ -45,12 +52,20 @@ public class Rota implements Serializable {
 		this.id = id;
 	}
 
-	public List<Cidade> getCidades() {
-		return cidades;
+	public Cidade getCidadeOrigem() {
+		return cidadeOrigem;
 	}
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
+	public void setCidadeOrigem(Cidade cidadeOrigem) {
+		this.cidadeOrigem = cidadeOrigem;
+	}
+
+	public Cidade getCidadeDestino() {
+		return cidadeDestino;
+	}
+
+	public void setCidadeDestino(Cidade cidadeDestino) {
+		this.cidadeDestino = cidadeDestino;
 	}
 
 	public List<Parada> getParadas() {
@@ -97,10 +112,11 @@ public class Rota implements Serializable {
 	public String toString() {
 		return "Rota{" +
 				"id=" + id +
-				", cidades=" + cidades +
+				", cidadeOrigem=" + cidadeOrigem +
+				", cidadeDestino=" + cidadeDestino +
 				", paradas=" + paradas +
 				", horarioSaida=" + horarioSaida +
-				", horarioChegadda=" + horarioChegadda +
+				", horarioChegada=" + horarioChegada +
 				'}';
 	}
 }
