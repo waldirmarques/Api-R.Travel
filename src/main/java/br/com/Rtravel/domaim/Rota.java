@@ -1,6 +1,9 @@
 package br.com.Rtravel.domaim;
 
+import org.hibernate.annotations.Target;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,25 +21,29 @@ public class Rota implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cidadeOrigem_id")
+	@JoinColumn(name = "cidadeOrigem_id")
 	private Cidade cidadeOrigem;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cidadeDestino_id")
+	@JoinColumn(name = "cidadeDestino_id")
 	private Cidade cidadeDestino;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
-	
+
+	private Date horarioSaida;
+
+	private Date horarioChegada;
+
 	public Rota() {}
 	
 
-	public Rota(Long id, Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
+	public Rota(Long id,Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
 		super();
 		this.id = id;
 		this.cidadeOrigem = cidadeOrigem;
@@ -52,23 +59,37 @@ public class Rota implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Cidade getCidadeOrigem() {
 		return cidadeOrigem;
 	}
+
 	public void setCidadeOrigem(Cidade cidadeOrigem) {
 		this.cidadeOrigem = cidadeOrigem;
 	}
+
 	public Cidade getCidadeDestino() {
 		return cidadeDestino;
 	}
+
 	public void setCidadeDestino(Cidade cidadeDestino) {
 		this.cidadeDestino = cidadeDestino;
 	}
+
 	public List<Parada> getParadas() {
 		return paradas;
 	}
-	public void setParada(List<Parada> paradas) {
+	public void setParadas(List<Parada> paradas) {
 		this.paradas = paradas;
+	}
+
+	public Date getHorarioSaida() {
+		return horarioSaida;
+	}
+
+	public void setHorarioSaida(Date horarioSaida) {
+		this.horarioSaida = horarioSaida;
+
 	}
 
 	@Override
@@ -94,6 +115,17 @@ public class Rota implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
+	}
+
+	@Override
+	public String toString() {
+		return "Rota{" +
+				"id=" + id +
+				", cidadeOrigem=" + cidadeOrigem +
+				", cidadeDestino=" + cidadeDestino +
+				", paradas=" + paradas +
+				", horarioSaida=" + horarioSaida +
+				", horarioChegada=" + horarioChegada +
+				'}';
+	}
 }

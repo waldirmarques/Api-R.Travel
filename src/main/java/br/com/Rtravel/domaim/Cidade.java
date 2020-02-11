@@ -1,11 +1,12 @@
 package br.com.Rtravel.domaim;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
 public class Cidade implements Serializable {
@@ -14,7 +15,15 @@ public class Cidade implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@JsonIgnore
+	@OneToMany(mappedBy="cidadeOrigem")
+	private List<Rota> rotasOrigem = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy="cidadeDestino")
+	private List<Rota> rotasDestino = new ArrayList<>();
+
 	private String estado;
 	private String nome;
 	private Double latitude;
@@ -37,6 +46,21 @@ public class Cidade implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public List<Rota> getRotasOrigem() {
+		return rotasOrigem;
+	}
+	public void setRotasOrigem(List<Rota> rotasOrigem) {
+		this.rotasOrigem = rotasOrigem;
+	}
+
+	public List<Rota> getRotasDestino() {
+		return rotasDestino;
+	}
+
+	public void setRotasDestino(List<Rota> rotasDestino) {
+		this.rotasDestino = rotasDestino;
+	}
+
 	public String getEstado() {
 		return estado;
 	}
@@ -55,11 +79,21 @@ public class Cidade implements Serializable {
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public Double getDoubleitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setDoubleitude(Double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
+	@Override
+	public String toString() {
+		return "Cidade{" +
+				"id=" + id +
+				", estado='" + estado + '\'' +
+				", nome='" + nome + '\'' +
+				", latitude=" + latitude +
+				", longitude=" + longitude +
+				'}';
+	}
 }

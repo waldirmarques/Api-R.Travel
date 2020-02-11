@@ -1,8 +1,10 @@
 package br.com.Rtravel.domaim;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
-
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Parada implements Serializable {
@@ -23,11 +26,13 @@ public class Parada implements Serializable {
 	private String url;
 	private Double latitude;
 	private Double longitude;
-	
+
 	@JsonIgnore
 	@ManyToMany(mappedBy = "paradas", fetch = FetchType.EAGER)
 	private List<Rota> rotas;
-	
+
+	private Date horarioChegada;
+
 	public Parada() {}
 	
 	
@@ -80,16 +85,13 @@ public class Parada implements Serializable {
 		this.latitude = latitude;
 	}
 
-
 	public Double getLongitude() {
 		return longitude;
 	}
 
-
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
-
 
 	public List<Rota> getRotas() {
 		return rotas;
@@ -99,6 +101,5 @@ public class Parada implements Serializable {
 	public void setRotas(List<Rota> rotas) {
 		this.rotas = rotas;
 	}
-
 
 }
