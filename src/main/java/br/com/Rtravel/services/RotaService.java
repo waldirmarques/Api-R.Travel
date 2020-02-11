@@ -3,8 +3,6 @@ package br.com.Rtravel.services;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.Rtravel.repositories.CidadeRepository;
-import br.com.Rtravel.repositories.ParadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -47,12 +45,6 @@ public class RotaService {
 	public Rota update(Rota obj){
 		find(obj.getId()); //verifica se o objeto existe
 		return repo.save(obj);
-	}
-
-	private void updateData(Rota newObj, Rota obj) {
-		newObj.setCidadeDestino(obj.getCidadeDestino());
-		newObj.setCidadeOrigem(obj.getCidadeOrigem());
-		newObj.setParada(obj.getParadas());
 	}
 
 	public void delete(Long id){
