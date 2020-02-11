@@ -26,12 +26,12 @@ public class Cidade implements Serializable {
 
 	private String estado;
 	private String nome;
-	private Double latitude;
-	private Double longitude;
+	private String latitude;
+	private String longitude;
 	
 	public Cidade() {}
-	
-	public Cidade(Long id, String estado, String nome, Double latitude, Double longitude) {
+
+	public Cidade(Long id, String estado, String nome, String latitude, String longitude) {
 		super();
 		this.id = id;
 		this.estado = estado;
@@ -73,16 +73,16 @@ public class Cidade implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-	public Double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Double longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 
