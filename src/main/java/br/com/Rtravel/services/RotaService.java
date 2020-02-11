@@ -64,7 +64,7 @@ public class RotaService {
 	}
 
 	public Rota fromDTO(RotaDTO objDto) {
-		return new Rota(objDto.getId(),objDto.getCidades(), objDto.getParadas());
+		return new Rota(objDto.getId(),objDto.getCidadeOrigem(),objDto.getCidadeDestino(), objDto.getParadas());
 	}
 
 
