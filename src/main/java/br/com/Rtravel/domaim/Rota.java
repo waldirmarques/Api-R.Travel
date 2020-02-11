@@ -1,7 +1,5 @@
 package br.com.Rtravel.domaim;
 
-import org.hibernate.annotations.Target;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
