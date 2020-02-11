@@ -17,8 +17,12 @@ public class Cidade implements Serializable {
 	private Long id;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy="cidades", fetch = FetchType.EAGER)
-	private List<Rota> rotas = new ArrayList<>();
+	@OneToMany(mappedBy="cidadeOrigem")
+	private List<Rota> rotasOrigem = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy="cidadeDestino")
+	private List<Rota> rotasDestino = new ArrayList<>();
 
 	private String estado;
 	private String nome;
@@ -42,12 +46,21 @@ public class Cidade implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Rota> getRotas() {
-		return rotas;
+	public List<Rota> getRotasOrigem() {
+		return rotasOrigem;
 	}
-	public void setRotas(List<Rota> rotas) {
-		this.rotas = rotas;
+	public void setRotasOrigem(List<Rota> rotasOrigem) {
+		this.rotasOrigem = rotasOrigem;
 	}
+
+	public List<Rota> getRotasDestino() {
+		return rotasDestino;
+	}
+
+	public void setRotasDestino(List<Rota> rotasDestino) {
+		this.rotasDestino = rotasDestino;
+	}
+
 	public String getEstado() {
 		return estado;
 	}
