@@ -49,11 +49,11 @@ public class DBService {
 		userRepository.saveAll(Arrays.asList(userAdmin));
 		userRepository.saveAll(Arrays.asList(user1));
 	
-		List<Cidade> cidades = new ArrayList<>();
+//		List<Cidade> cidades = new ArrayList<>();
 		Cidade cid1 = new Cidade(null,"Paraiba-PB","Rio Tinto", 83.0, 43.9);
 		Cidade cid2 = new Cidade(null,"Paraiba-PB","Baia da Traição", 56.0, 90.9);
-		cidades.addAll(Arrays.asList(cid1,cid2));
-		cidadeRepository.saveAll(cidades);
+//		cidades.addAll(Arrays.asList(cid1,cid2));
+		cidadeRepository.saveAll(Arrays.asList(cid1,cid2));
 		
 		Parada para1 = new Parada(null,"Perto do posto de Rio Tinto","https://www.google.com/search?q=posto+de+rio+tinto", 83.42, 42.23);
 		Parada para2 = new Parada(null,"Perto da honda","https://www.google.com/search?q=honda+de+rio+tinto", 83.32, 42.53);
@@ -66,8 +66,8 @@ public class DBService {
 
 
 
-		Rota rota1 = new Rota(null,cidades,paradas);
-		Rota rota2 = new Rota(null,cidades,paradas);
+		Rota rota1 = new Rota(null,cid1,cid2,paradas);
+		Rota rota2 = new Rota(null,cid2,cid1,paradas);
 		
 		rotaRepository.saveAll(Arrays.asList(rota1, rota2));
 		
