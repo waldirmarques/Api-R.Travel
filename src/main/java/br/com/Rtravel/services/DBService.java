@@ -62,18 +62,11 @@ public class DBService {
 		
 		paradaRepository.saveAll(Arrays.asList(para1,para2));
 
-
-
 		Rota rota1 = new Rota(null,cid1,cid2,paradas);
 		Rota rota2 = new Rota(null,cid2,cid1,paradas);
 		
 		rotaRepository.saveAll(Arrays.asList(rota1, rota2));
-		
-		
-		
-		
-		
-		
+
 	}
 }
 
