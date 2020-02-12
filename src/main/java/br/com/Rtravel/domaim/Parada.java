@@ -12,8 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-
+@Data()
+@ToString(exclude = { "" })
+@EqualsAndHashCode(exclude = {"pontoReferencia", "url", "latitude", "longitude", "rotas", "horarioChegada"})
 @Entity
 public class Parada implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,8 +38,7 @@ public class Parada implements Serializable {
 	private Date horarioChegada;
 
 	public Parada() {}
-	
-	
+
 	public Parada(Long id, String pontoReferencia, String url, String latitude, String longitude) {
 		super();
 		this.id = id;
@@ -42,73 +46,6 @@ public class Parada implements Serializable {
 		this.url = url;
 		this.latitude = latitude;
 		this.longitude = longitude;
-	}
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public String getPontoReferencia() {
-		return pontoReferencia;
-	}
-
-
-	public void setPontoReferencia(String pontoReferencia) {
-		this.pontoReferencia = pontoReferencia;
-	}
-
-
-	public String getUrl() {
-		return url;
-	}
-
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-
-	public String getLatitude() {
-		return latitude;
-	}
-
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public List<Rota> getRotas() {
-		return rotas;
-	}
-
-
-	public void setRotas(List<Rota> rotas) {
-		this.rotas = rotas;
-	}
-
-
-	public Date getHorarioChegada() {
-		return horarioChegada;
-	}
-
-
-	public void setHorarioChegada(Date horarioChegada) {
-		this.horarioChegada = horarioChegada;
 	}
 
 }
