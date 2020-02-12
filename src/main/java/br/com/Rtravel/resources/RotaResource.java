@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.Rtravel.domaim.Rota;
-import br.com.Rtravel.dto.RotaDTO;
 import br.com.Rtravel.services.RotaService;
 import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -41,27 +40,24 @@ public class RotaResource {
 
 	@ApiOperation(value = "Seleciona todas as rotas do sistema")
 	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
-	public ResponseEntity<List<RotaDTO>> findAll() {
+	public ResponseEntity<List<Rota>> findAll() {
 		List<Rota> list = service.findAll();
-		List<RotaDTO> listDTO = list.stream().map(obj -> new RotaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+		return ResponseEntity.ok().body(list);
 	}
 
 	@ApiOperation(value = "Seleciona rota com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
-	public ResponseEntity<Page<RotaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<Rota>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Rota> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<RotaDTO> listDTO = list.map(obj -> new RotaDTO(obj));
-		return ResponseEntity.ok().body(listDTO);
+		return ResponseEntity.ok().body(list);
 	}
 
 	@ApiOperation(value = "Adiciona nova rota")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
-	public ResponseEntity<Rota> insert(@Valid @RequestBody RotaDTO objDto) {
-		Rota obj = service.fromDTO(objDto);
+	public ResponseEntity<Rota> insert(@Valid @RequestBody Rota obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -69,10 +65,8 @@ public class RotaResource {
 
 	@ApiOperation(value = "Atualiza rota por id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
-	public ResponseEntity<Void> update(@Valid @RequestBody RotaDTO objDto, @PathVariable Long id)
+	public ResponseEntity<Void> update(@Valid @RequestBody Rota obj, @PathVariable Long id)
 			throws ObjectNotFoundException {
-
-		Rota obj = service.fromDTO(objDto);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();

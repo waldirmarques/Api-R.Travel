@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.Rtravel.domaim.Rota;
-import br.com.Rtravel.dto.RotaDTO;
 import br.com.Rtravel.repositories.RotaRepository;
 import br.com.Rtravel.services.exceptions.DataIntegrityException;
 import br.com.Rtravel.services.exceptions.ObjectNotFoundException;
@@ -61,10 +60,5 @@ public class RotaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-
-	public Rota fromDTO(RotaDTO objDto) {
-		return new Rota(objDto.getId(),objDto.getCidadeOrigem(),objDto.getCidadeDestino(), objDto.getParadas());
-	}
-
 
 }
