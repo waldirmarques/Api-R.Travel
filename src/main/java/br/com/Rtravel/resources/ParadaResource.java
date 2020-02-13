@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value = "/api.rtravel/v1/paradas")
+@RequestMapping(value = "/v1/api/paradas")
 @CrossOrigin(origins = "*")
 public class ParadaResource {
 	
