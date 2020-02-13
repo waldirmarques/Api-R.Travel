@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
-@RequestMapping(value="/api.rtravel/v1/user")
+@RequestMapping(value="/v1/api/user")
 @CrossOrigin(origins="*") //Todo dominio pode acessar essa api
 public class UserResouces {
 	
