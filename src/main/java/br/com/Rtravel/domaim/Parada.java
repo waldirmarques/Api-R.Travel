@@ -32,7 +32,7 @@ public class Parada implements Serializable {
 	private String longitude;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "paradas", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "paradas")
 	private List<Rota> rotas;
 
 	private Date horarioChegada;

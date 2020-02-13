@@ -32,7 +32,7 @@ public class Rota implements Serializable {
 	@JoinColumn(name = "cidadeDestino_id")
 	private Cidade cidadeDestino;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
 
