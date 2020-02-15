@@ -25,7 +25,7 @@ import lombok.ToString;
 @ToString(exclude = { "" })
 @EqualsAndHashCode(exclude = {"name", "email", "senha"})
 @Entity
-public class User implements Serializable {
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -44,11 +44,11 @@ public class User implements Serializable {
 	private Set<Integer> perfis = new HashSet<>();
 		
 	
-	public User() {
+	public Usuario() {
 		addPerfil(Perfil.ADMIN);
 	}
 	
-	public User(Integer id, String nome, String email, String senha) {
+	public Usuario(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;

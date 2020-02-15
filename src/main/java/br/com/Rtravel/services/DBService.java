@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import br.com.Rtravel.domaim.Cidade;
 import br.com.Rtravel.domaim.Parada;
 import br.com.Rtravel.domaim.Rota;
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 import br.com.Rtravel.enums.Perfil;
 import br.com.Rtravel.repositories.CidadeRepository;
 import br.com.Rtravel.repositories.ParadaRepository;
@@ -40,10 +40,10 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException{
 		
-		User userAdmin = new User(null,"MainAdmin","admin@gmail.com",pe.encode("admin"));
+		Usuario userAdmin = new Usuario(null,"MainAdmin","admin@gmail.com",pe.encode("admin"));
 		userAdmin.addPerfil(Perfil.ADMIN);
 		
-		User user1 = new User(null,"Waldir Marques","waldir@gmail.com",pe.encode("normal"));
+		Usuario user1 = new Usuario(null,"Waldir Marques","waldir@gmail.com",pe.encode("normal"));
 		user1.addPerfil(Perfil.USER);
 		
 		userRepository.saveAll(Arrays.asList(userAdmin));

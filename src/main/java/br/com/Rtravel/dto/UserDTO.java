@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 
 public class UserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class UserDTO implements Serializable{
 		
 	}
 	
-	public UserDTO(User user) {
+	public UserDTO(Usuario user) {
 		id = user.getId();
 		nome = user.getNome();
 		email = user.getEmail();

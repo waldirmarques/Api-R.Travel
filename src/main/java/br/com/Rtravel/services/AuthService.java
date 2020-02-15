@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 import br.com.Rtravel.repositories.UserRepository;
 import br.com.Rtravel.services.exceptions.ObjectNotFoundException;
 
@@ -27,7 +27,7 @@ public class AuthService {
 
 	public void sendNewPassword(String email) {
 
-		User user = userRepository.findByEmail(email);
+		Usuario user = userRepository.findByEmail(email);
 		
 		if (user == null) {
 			throw new ObjectNotFoundException("Email não encontrado");

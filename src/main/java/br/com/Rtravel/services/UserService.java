@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 import br.com.Rtravel.dto.UserDTO;
 import br.com.Rtravel.enums.Perfil;
 import br.com.Rtravel.repositories.UserRepository;
@@ -30,25 +30,25 @@ public class UserService {
 	@Autowired //Essa anotação faz com que o objeto seja estanciado assim como está.
 	private UserRepository repo;
 	
-	public User find(Integer id) throws ObjectNotFoundException {		
+	public Usuario find(Integer id) throws ObjectNotFoundException {
 		UserSS user = UserServiceService.authenticated();
 		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
 		
-		Optional<User> obj = repo.findById(id);
+		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
 	}
 
 	@Transactional
-	public User insert(User obj) {
+	public Usuario insert(Usuario obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 
-	public User update(User obj){
-		User newObj = find(obj.getId());
+	public Usuario update(Usuario obj){
+		Usuario newObj = find(obj.getId());
 		updateData(newObj,obj);
 		return repo.save(obj);
 	}
@@ -63,34 +63,34 @@ public class UserService {
 		}
 	}
 
-	public List<User> findAll() {
+	public List<Usuario> findAll() {
 		return repo.findAll();
 	}
 	
-	public Page<User> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+	public Page<Usuario> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 	
-	public User fromDTO(UserDTO objDto) {
-		return new User(objDto.getId(),objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
+	public Usuario fromDTO(UserDTO objDto) {
+		return new Usuario(objDto.getId(),objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
 	}
 	
-	private void updateData(User newObj,User obj) {
+	private void updateData(Usuario newObj, Usuario obj) {
 		newObj.setNome(obj.getNome());
 	}
 	
-	public User findByEmail(String email){
+	public Usuario findByEmail(String email){
 		
 		UserSS user = UserServiceService.authenticated();
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
 			throw new AuthorizationException("Acesso negado");
 		}
 	
-		User obj = repo.findByEmail(email);
+		Usuario obj = repo.findByEmail(email);
 		if (obj == null) {
 			throw new ObjectNotFoundException(
-					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + User.class.getName());
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Usuario.class.getName());
 		}
 		return obj;
 	}

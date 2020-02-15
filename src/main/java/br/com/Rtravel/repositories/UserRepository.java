@@ -4,12 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 
 @Repository	
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<Usuario, Integer>{
 	
 	@Transactional(readOnly=true)
-	User findByEmail(String email);
+    Usuario findByEmail(String email);
 	
 }

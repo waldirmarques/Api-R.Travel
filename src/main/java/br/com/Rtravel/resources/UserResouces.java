@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 import br.com.Rtravel.dto.UserDTO;
 import br.com.Rtravel.services.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -35,22 +35,22 @@ public class UserResouces {
 	
 	@ApiOperation(value = "Seleciona usuário por id")
 	@RequestMapping(value="/{id}", method = RequestMethod.GET) //lista usuário por id
-	public ResponseEntity<User> find(@PathVariable Integer id){
-		User obj = service.find(id);
+	public ResponseEntity<Usuario> find(@PathVariable Integer id){
+		Usuario obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@ApiOperation(value = "Seleciona usuário por email")
 	@RequestMapping(value="/email", method=RequestMethod.GET) //lista usuário por email
-	public ResponseEntity<User> find(@RequestParam(value="value") String email) {
-		User obj = service.findByEmail(email);
+	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email) {
+		Usuario obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@ApiOperation(value = "Seleciona todos os usuários do sistema")
 	@RequestMapping(method = RequestMethod.GET) //lista todos os usuário
 	public ResponseEntity<List<UserDTO>> findPage() {
-		List<User> list = service.findAll();
+		List<Usuario> list = service.findAll();
 		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
@@ -62,7 +62,7 @@ public class UserResouces {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction){
-		Page<User> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<UserDTO> listDTO = list.map(obj -> new UserDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 	}
@@ -70,7 +70,7 @@ public class UserResouces {
 	@ApiOperation(value = "Adiciona novo usuário")
 	@RequestMapping(method=RequestMethod.POST) //adiciona um novo usuário
 	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDto){
-		User obj = service.fromDTO(objDto);
+		Usuario obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(obj.getId()).toUri();
@@ -80,7 +80,7 @@ public class UserResouces {
 	@ApiOperation(value = "Atualiza usuário por id")
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //atualizar uma usuário
 	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
-		User obj = service.fromDTO(objDto);
+		Usuario obj = service.fromDTO(objDto);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}

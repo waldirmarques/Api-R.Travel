@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 
 
 @Service
@@ -16,13 +16,13 @@ public abstract class AbstractEmailService implements EmailService{
 	private String sender;
 	
 	@Override
-	public void sendNewPasswordEmail(User user, String newPass) {
+	public void sendNewPasswordEmail(Usuario user, String newPass) {
 		SimpleMailMessage sm = prepareNewPasswordEmail(user, newPass);
 		sendEmail(sm);
 	}
 	
 
-	protected SimpleMailMessage prepareNewPasswordEmail(User user, String newPass) {
+	protected SimpleMailMessage prepareNewPasswordEmail(Usuario user, String newPass) {
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(user.getEmail());
 		sm.setFrom(sender);

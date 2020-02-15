@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.Rtravel.domaim.User;
+import br.com.Rtravel.domaim.Usuario;
 import br.com.Rtravel.repositories.UserRepository;
 import br.com.Rtravel.security.UserSS;
 
@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = repo.findByEmail(email); //Procura no banco de dados o email
+		Usuario user = repo.findByEmail(email); //Procura no banco de dados o email
 		
 		if(user == null) { //Se imail não existir
 			throw new UsernameNotFoundException("Email não existe: "+email);
