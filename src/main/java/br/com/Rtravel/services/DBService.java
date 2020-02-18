@@ -66,7 +66,7 @@ public class DBService {
 		Rota rota2 = new Rota(null,cid2,cid1,paradas);
 		
 		rotaRepository.saveAll(Arrays.asList(rota1, rota2));
-
+		System.out.println("i'm here");
 	}
 }
 
