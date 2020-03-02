@@ -50,7 +50,7 @@ public class ParadaService {
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivevel excluir uma Parada que possui profutos");
+			throw new DataIntegrityException("Não foi possível excluir!");
 		}
 	}
 	
