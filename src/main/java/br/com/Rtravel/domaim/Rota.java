@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Rota implements Serializable {
 	@JoinColumn(name = "cidadeDestino_id")
 	private Cidade cidadeDestino;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
 
