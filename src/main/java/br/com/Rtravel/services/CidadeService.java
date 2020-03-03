@@ -30,11 +30,7 @@ public class CidadeService {
     }
 
     public void delete(Long id) {
-        try {
-            cidadeRepository.deleteById(id);
-        }catch (DataIntegrityViolationException e) {
-            throw new br.com.Rtravel.services.exceptions.DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
-        }
+        cidadeRepository.deleteById(id);
     }
 
     public Cidade update(Cidade cidade) {
