@@ -39,12 +39,12 @@ public class UserResouces {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@ApiOperation(value = "Seleciona usuário por email")
-	@RequestMapping(value="/email", method=RequestMethod.GET) //lista usuário por email
-	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email) {
-		Usuario obj = service.findByEmail(email);
-		return ResponseEntity.ok().body(obj);
-	}
+//	@ApiOperation(value = "Seleciona usuário por email")
+//	@RequestMapping(value="/email", method=RequestMethod.GET) //lista usuário por email
+//	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email) {
+//		Usuario obj = service.findByEmail(email);
+//		return ResponseEntity.ok().body(obj);
+//	}
 	
 	@ApiOperation(value = "Seleciona todos os usuários do sistema")
 	@RequestMapping(method = RequestMethod.GET) //lista todos os usuário

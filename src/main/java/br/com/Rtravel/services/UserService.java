@@ -30,10 +30,10 @@ public class UserService {
 	private UserRepository repo;
 	
 	public Usuario find(Integer id) throws ObjectNotFoundException {
-		UserSS user = UserServiceService.authenticated();
-		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
-			throw new AuthorizationException("Acesso negado");
-		}
+//		UserSS user = UserServiceService.authenticated();
+//		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+//			throw new AuthorizationException("Acesso negado");
+//		}
 		
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -59,7 +59,7 @@ public class UserService {
 			repo.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivevel excluir uma User que possui profutos");
+			throw new DataIntegrityException("Não é possivevel excluir uma User que possui dependências");
 		}
 	}
 

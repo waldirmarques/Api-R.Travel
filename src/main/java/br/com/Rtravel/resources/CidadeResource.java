@@ -37,7 +37,7 @@ public class CidadeResource {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<Cidade>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-        @RequestParam(value = "orderBy", defaultValue = "cidadeOrigem") String orderBy,
+        @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
         @RequestParam(value = "direction", defaultValue = "ASC") String direction){
 
         Page<Cidade> listPage = service.findPage(page,linesPerPage,orderBy,direction);
