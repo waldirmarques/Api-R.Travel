@@ -1,5 +1,6 @@
 package br.com.Rtravel.domaim;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,8 +36,10 @@ public class Rota implements Serializable {
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
 
+	@JsonFormat(pattern="HH:mm:ss")
 	private Date horarioSaida;
 
+	@JsonFormat(pattern="HH:mm:ss")
 	private Date horarioChegada;
 
 	public Rota() {}

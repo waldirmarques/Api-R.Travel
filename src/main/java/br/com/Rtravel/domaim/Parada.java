@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,6 +35,7 @@ public class Parada implements Serializable {
 	@ManyToMany(mappedBy = "paradas")
 	private List<Rota> rotas;
 
+	@JsonFormat(pattern="HH:mm:ss")
 	private Date horarioChegada;
 
 	public Parada() {}
