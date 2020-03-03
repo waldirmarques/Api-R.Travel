@@ -2,6 +2,8 @@ package br.com.Rtravel.config;
 
 import java.util.Arrays;
 
+import br.com.Rtravel.services.EmailService;
+import br.com.Rtravel.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -127,6 +129,11 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter{
 	    config.addAllowedMethod("PATCH");
 	    source.registerCorsConfiguration("/**", config);
 	    return new CorsFilter(source);
+	}
+
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 	
 }
