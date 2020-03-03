@@ -30,7 +30,7 @@ public class DBService {
 	
 	@Autowired
 	private RotaRepository rotaRepository;
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
@@ -48,7 +48,7 @@ public class DBService {
 		
 		userRepository.saveAll(Arrays.asList(userAdmin));
 		userRepository.saveAll(Arrays.asList(user1));
-	
+
 		Cidade cid1 = cidadeRepository.save(new Cidade(null,"Paraiba-PB","Rio Tinto", "83.0", "43.9"));
 		Cidade cid2 = cidadeRepository.save(new Cidade(null,"Paraiba-PB","Baia da Traição", "56.0", "90.9"));
 		Cidade cid3 = cidadeRepository.save(new Cidade(null,"Paraiba-PB","João Pessoa", "56.0", "90.9"));
@@ -60,13 +60,11 @@ public class DBService {
 		paradas.add(para1);
 		paradas.add(para2);
 
-		paradaRepository.saveAll(Arrays.asList(para1,para2));
-
 		Rota rota1 = new Rota(null,cid1,cid2,paradas);
 		Rota rota2 = new Rota(null,cid2,cid1,paradas);
 		
 		rotaRepository.saveAll(Arrays.asList(rota1, rota2));
-
+		System.out.println("i'm here");
 	}
 }
 

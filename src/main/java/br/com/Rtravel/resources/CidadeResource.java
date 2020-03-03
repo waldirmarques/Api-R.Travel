@@ -8,10 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Resource
+@RestController
 @RequestMapping(value = "/v1/api/cidades")
 @CrossOrigin(origins = "*")
 public class CidadeResource {
@@ -38,7 +37,7 @@ public class CidadeResource {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<Cidade>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-        @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+        @RequestParam(value = "orderBy", defaultValue = "cidadeOrigem") String orderBy,
         @RequestParam(value = "direction", defaultValue = "ASC") String direction){
 
         Page<Cidade> listPage = service.findPage(page,linesPerPage,orderBy,direction);

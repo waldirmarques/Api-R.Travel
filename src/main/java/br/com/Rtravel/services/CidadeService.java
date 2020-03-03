@@ -8,10 +8,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CidadeService {
 
     @Autowired
@@ -28,11 +30,7 @@ public class CidadeService {
     }
 
     public void delete(Long id) {
-        try {
-            cidadeRepository.deleteById(id);
-        }catch (DataIntegrityViolationException e) {
-            throw new br.com.Rtravel.services.exceptions.DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
-        }
+        cidadeRepository.deleteById(id);
     }
 
     public Cidade update(Cidade cidade) {
