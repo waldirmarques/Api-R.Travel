@@ -46,12 +46,7 @@ public class ParadaService {
 
 	public void delete(Long id){
 		find(id);
-		try {
-			repo.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir!");
-		}
+		repo.deleteById(id);
 	}
 	
 	public Page<Parada> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){

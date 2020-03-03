@@ -48,12 +48,8 @@ public class RotaService {
 
 	public void delete(Long id){
 		find(id);
-		try {
-			repo.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivevel excluir uma Rota que possui profutos");
-		}
+		repo.deleteById(id);
+
 	}
 	
 	public Page<Rota> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
