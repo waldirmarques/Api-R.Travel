@@ -31,21 +31,21 @@ public class RotaResource {
 	@Autowired
 	private RotaService service;
 
-	@ApiOperation(value = "Seleciona rota por id")
+	@ApiOperation(value = "Seleciona e retorna uma rota de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // lista rota por id
 	public ResponseEntity<Rota> find(@PathVariable Long id) {
 		Rota obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@ApiOperation(value = "Seleciona todas as rotas do sistema")
+	@ApiOperation(value = "Lista todas as rotas cadastradas no sistema")
 	@RequestMapping(method = RequestMethod.GET) // lista todos os rota
 	public ResponseEntity<List<Rota>> findAll() {
 		List<Rota> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Seleciona rota com paginação")
+	@ApiOperation(value = "Lista as rotas de ônibus com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os rotas
 	public ResponseEntity<Page<Rota>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -55,7 +55,7 @@ public class RotaResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Adiciona nova rota")
+	@ApiOperation(value = "Adiciona uma nova rota de ônibus")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo rota
 	public ResponseEntity<Rota> insert(@Valid @RequestBody Rota obj) {
 		System.out.println(obj);
@@ -64,7 +64,7 @@ public class RotaResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@ApiOperation(value = "Atualiza rota por id")
+	@ApiOperation(value = "Atualiza uma rota de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma rota
 	public ResponseEntity<Void> update(@Valid @RequestBody Rota obj, @PathVariable Long id)
 			throws ObjectNotFoundException {
@@ -73,7 +73,7 @@ public class RotaResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@ApiOperation(value = "Deleta rota por id")
+	@ApiOperation(value = "Deleta uma rota de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta rota
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws ObjectNotFoundException {
 		service.delete(id);

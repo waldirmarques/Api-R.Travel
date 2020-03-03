@@ -30,21 +30,21 @@ public class ParadaResource {
 	@Autowired
 	private ParadaService service;
 
-	@ApiOperation(value = "Seleciona parada por id")
+	@ApiOperation(value = "Seleciona e retorna uma parada de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // lista usuário por id
 	public ResponseEntity<Parada> find(@PathVariable Long id) {
 		Parada obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@ApiOperation(value = "Seleciona todas as paradas do sistema")
+	@ApiOperation(value = "Lista todas as paradas de ônibus cadastradas no sistema")
 	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
 	public ResponseEntity<List<Parada>> findAll() {
 		List<Parada> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Seleciona parada com paginação")
+	@ApiOperation(value = "Lista as paradas de ônibus com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
 	public ResponseEntity<Page<Parada>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -54,7 +54,7 @@ public class ParadaResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@ApiOperation(value = "Adiciona nova parada")
+	@ApiOperation(value = "Adiciona uma nova parada de ônibus")
 	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
 	public ResponseEntity<Parada> insert(@Valid @RequestBody Parada objDto) {
 		Parada obj = service.fromDTO(objDto);
@@ -63,7 +63,7 @@ public class ParadaResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@ApiOperation(value = "Atualiza parada por id")
+	@ApiOperation(value = "Atualiza uma parada de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
 	public ResponseEntity<Void> update(@Valid @RequestBody Parada objDto, @PathVariable Long id)
 			throws ObjectNotFoundException {
@@ -74,7 +74,7 @@ public class ParadaResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@ApiOperation(value = "Deleta parada por id")
+	@ApiOperation(value = "Deleta uma parada de ônibus pelo seu ID")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta usuário
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws ObjectNotFoundException {
 		service.delete(id);
