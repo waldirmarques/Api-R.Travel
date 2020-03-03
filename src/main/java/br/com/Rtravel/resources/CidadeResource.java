@@ -19,21 +19,21 @@ public class CidadeResource {
     private CidadeService service;
 
 
-    @ApiOperation(value = "Seleciona rota por id")
+    @ApiOperation(value = "Seleciona e retorna uma cidade pelo seu ID")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cidade> find(@PathVariable Long id){
         Cidade obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @ApiOperation(value = "Seleciona todas as rotas do sistema")
+    @ApiOperation(value = "Lista todas as cidades cadastradas no sistema")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Cidade>> findAll(){
         List<Cidade> listObj = service.findAll();
         return ResponseEntity.ok().body(listObj);
     }
 
-    @ApiOperation(value = "Seleciona rota com paginação")
+    @ApiOperation(value = "Lista as cidades com paginação")
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<Cidade>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,

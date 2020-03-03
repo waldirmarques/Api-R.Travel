@@ -46,14 +46,14 @@ public class UserResouces {
 //		return ResponseEntity.ok().body(obj);
 //	}
 	
-	@ApiOperation(value = "Seleciona todos os usuários do sistema")
+	@ApiOperation(value = "Lista todos os usuários cadastradas no sistema")
 	@RequestMapping(method = RequestMethod.GET) //lista todos os usuário
 	public ResponseEntity<List<Usuario>> findPage() {
 		List<Usuario> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@ApiOperation(value = "Seleciona usuário com paginação")
+	@ApiOperation(value = "Seleciona usuários com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) //lista todas os usuários
 	public ResponseEntity<Page<Usuario>> findAll(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
@@ -73,14 +73,14 @@ public class UserResouces {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@ApiOperation(value = "Atualiza usuário por id")
+	@ApiOperation(value = "Atualiza um usuário pelo seu ID")
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //atualizar uma usuário
 	public ResponseEntity<Void> update(@Valid @RequestBody Usuario obj, @PathVariable Integer id) throws ObjectNotFoundException{
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@ApiOperation(value = "Deleta usuário por id")
+	@ApiOperation(value = "Deleta um usuário pelo seu ID")
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE) //Deleta usuário
 	public ResponseEntity<Void> delete(@PathVariable Integer id) throws ObjectNotFoundException {
 		service.delete(id);
