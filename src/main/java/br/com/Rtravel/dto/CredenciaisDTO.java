@@ -1,7 +1,12 @@
 package br.com.Rtravel.dto;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.io.Serializable;
 
+@Data()
+@ToString(exclude = { "" })
 public class CredenciaisDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -11,19 +16,5 @@ public class CredenciaisDTO implements Serializable{
 	public CredenciaisDTO() {
 		
 	}
-	
-	public String getEmail() {
-		return Email;
-	}
-	public void setEmail(String email) {
-		Email = email;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
 	
 }

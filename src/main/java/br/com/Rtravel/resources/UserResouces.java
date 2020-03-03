@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.Rtravel.domaim.Usuario;
-import br.com.Rtravel.dto.UserDTO;
 import br.com.Rtravel.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -49,29 +48,26 @@ public class UserResouces {
 	
 	@ApiOperation(value = "Seleciona todos os usuários do sistema")
 	@RequestMapping(method = RequestMethod.GET) //lista todos os usuário
-	public ResponseEntity<List<UserDTO>> findPage() {
+	public ResponseEntity<List<Usuario>> findPage() {
 		List<Usuario> list = service.findAll();
-		List<UserDTO> listDTO = list.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@ApiOperation(value = "Seleciona usuário com paginação")
 	@RequestMapping(value = "/page", method = RequestMethod.GET) //lista todas os usuários
-	public ResponseEntity<Page<UserDTO>> findAll(
+	public ResponseEntity<Page<Usuario>> findAll(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction){
 		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
-		Page<UserDTO> listDTO = list.map(obj -> new UserDTO(obj));
-		return ResponseEntity.ok().body(listDTO);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@ApiOperation(value = "Adiciona novo usuário")
 	@RequestMapping(method=RequestMethod.POST) //adiciona um novo usuário
-	public ResponseEntity<Void> insert(@Valid @RequestBody UserDTO objDto){
-		Usuario obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody Usuario obj){
+		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -79,8 +75,7 @@ public class UserResouces {
 	
 	@ApiOperation(value = "Atualiza usuário por id")
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //atualizar uma usuário
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objDto,@PathVariable Integer id) throws ObjectNotFoundException{
-		Usuario obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody Usuario obj, @PathVariable Integer id) throws ObjectNotFoundException{
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}

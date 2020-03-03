@@ -13,17 +13,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.Rtravel.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data()
 @ToString(exclude = { "" })
-@EqualsAndHashCode(exclude = {"name", "email", "senha"})
+@EqualsAndHashCode(exclude = {"name", "email", "senha", "perfis"})
 @Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,12 +34,17 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String nome;
-	
+
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	@Column(unique=true)
 	private String email;
 
-	@JsonIgnore  //Do not show password when retrieving data
+	@NotEmpty(message="Preenchimento obrigatório")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String senha;
 	
 	@ElementCollection(fetch=FetchType.EAGER) //Sempre que buscar um usuário também pega seu perfil
@@ -65,5 +73,4 @@ public class Usuario implements Serializable {
 		this.perfis.add(perfil.getCod());
 	}
 
-	
 }

@@ -31,7 +31,7 @@ public class Rota implements Serializable {
 	@JoinColumn(name = "cidadeDestino_id")
 	private Cidade cidadeDestino;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
 

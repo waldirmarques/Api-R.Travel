@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data()
-@ToString(exclude = { "" })
+@ToString(exclude = { "rotas" })
 @EqualsAndHashCode(exclude = {"pontoReferencia", "url", "latitude", "longitude", "rotas", "horarioChegada"})
 @Entity
 public class Parada implements Serializable {

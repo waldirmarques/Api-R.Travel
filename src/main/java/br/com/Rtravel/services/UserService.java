@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.Rtravel.domaim.Usuario;
-import br.com.Rtravel.dto.UserDTO;
 import br.com.Rtravel.enums.Perfil;
 import br.com.Rtravel.repositories.UserRepository;
 import br.com.Rtravel.security.UserSS;
@@ -44,6 +43,7 @@ public class UserService {
 	@Transactional
 	public Usuario insert(Usuario obj) {
 		obj.setId(null);
+		obj.setSenha(pe.encode(obj.getSenha()));
 		return repo.save(obj);
 	}
 
@@ -70,10 +70,6 @@ public class UserService {
 	public Page<Usuario> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
-	}
-	
-	public Usuario fromDTO(UserDTO objDto) {
-		return new Usuario(objDto.getId(),objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
 	}
 	
 	private void updateData(Usuario newObj, Usuario obj) {

@@ -29,30 +29,6 @@ public class CidadeService {
         return cidadeRepository.findAll();
     }
 
-    public void delete(Long id) {
-        cidadeRepository.deleteById(id);
-    }
-
-    public Cidade update(Cidade cidade) {
-        Cidade novaCidade = find(cidade.getId());
-        atualizarCidade(novaCidade, cidade);
-        return cidadeRepository.save(novaCidade);
-    }
-
-    public Cidade insert(Cidade cidade){
-        cidade.setId(null);
-        return cidadeRepository.save(cidade);
-    }
-
-    private void atualizarCidade(Cidade novaCidade, Cidade cidade){
-        novaCidade.setNome(cidade.getNome());
-        novaCidade.setEstado(cidade.getEstado());
-        novaCidade.setLatitude(cidade.getLatitude());
-        novaCidade.setLongitude(cidade.getLongitude());
-        novaCidade.setRotasDestino(cidade.getRotasDestino());
-        novaCidade.setRotasOrigem(cidade.getRotasOrigem());
-    }
-
     public Page<Cidade> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage , Sort.Direction.valueOf(direction), orderBy);
         return cidadeRepository.findAll(pageRequest);
