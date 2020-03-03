@@ -23,12 +23,10 @@ public class Rota implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "cidadeOrigem_id")
 	private Cidade cidadeOrigem;
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "cidadeDestino_id")
 	private Cidade cidadeDestino;
