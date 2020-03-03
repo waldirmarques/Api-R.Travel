@@ -32,21 +32,21 @@ public class RotaResource {
 	private RotaService service;
 
 	@ApiOperation(value = "Seleciona rota por id")
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // lista usuário por id
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET) // lista rota por id
 	public ResponseEntity<Rota> find(@PathVariable Long id) {
 		Rota obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@ApiOperation(value = "Seleciona todas as rotas do sistema")
-	@RequestMapping(method = RequestMethod.GET) // lista todos os usuário
+	@RequestMapping(method = RequestMethod.GET) // lista todos os rota
 	public ResponseEntity<List<Rota>> findAll() {
 		List<Rota> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@ApiOperation(value = "Seleciona rota com paginação")
-	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os usuários
+	@RequestMapping(value = "/page", method = RequestMethod.GET) // lista todas os rotas
 	public ResponseEntity<Page<Rota>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "cidadeOrigem") String orderBy,
@@ -56,15 +56,16 @@ public class RotaResource {
 	}
 
 	@ApiOperation(value = "Adiciona nova rota")
-	@RequestMapping(method = RequestMethod.POST) // adiciona um novo usuário
+	@RequestMapping(method = RequestMethod.POST) // adiciona um novo rota
 	public ResponseEntity<Rota> insert(@Valid @RequestBody Rota obj) {
+		System.out.println(obj);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
 	@ApiOperation(value = "Atualiza rota por id")
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma usuário
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT) // atualizar uma rota
 	public ResponseEntity<Void> update(@Valid @RequestBody Rota obj, @PathVariable Long id)
 			throws ObjectNotFoundException {
 		obj.setId(id);
@@ -73,7 +74,7 @@ public class RotaResource {
 	}
 
 	@ApiOperation(value = "Deleta rota por id")
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta usuário
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE) // Deleta rota
 	public ResponseEntity<Void> delete(@PathVariable Long id) throws ObjectNotFoundException {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

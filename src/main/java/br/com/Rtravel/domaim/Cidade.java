@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Data()
-@ToString(exclude = { "" })
+@ToString(exclude = { "rotasOrigem", "rotasDestino" })
 @EqualsAndHashCode(exclude = {"rotasOrigem", "rotasDestino", "estado", "nome", "latitude", "longitude"})
 @Entity
 public class Cidade implements Serializable {
