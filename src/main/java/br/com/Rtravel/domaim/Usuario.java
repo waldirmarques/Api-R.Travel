@@ -1,18 +1,13 @@
 package br.com.Rtravel.domaim;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -46,6 +41,10 @@ public class Usuario implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String senha;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Comentario> comentarios = new ArrayList<>();
 	
 	@ElementCollection(fetch=FetchType.EAGER) //Sempre que buscar um usuário também pega seu perfil
 	@CollectionTable(name="PERFIS") //Nome da tabela de ligação entre usuario e perfil

@@ -1,6 +1,7 @@
 package br.com.Rtravel.domaim;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,9 @@ public class Rota implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
+
+	@OneToMany(mappedBy = "rota", cascade = CascadeType.ALL)
+	private List<Comentario> comentarios;
 
 	@JsonFormat(pattern="HH:mm:ss")
 	private Date horarioSaida;
