@@ -1,6 +1,5 @@
 package br.com.Rtravel.domaim;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data()
-@EqualsAndHashCode(exclude = {"rota", "usuario", "comentario"})
+@EqualsAndHashCode(exclude = { "usuario", "comentario" })
 @Entity
 public class Comentario implements Serializable {
 
@@ -19,25 +18,18 @@ public class Comentario implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "rota_id")
-    @JsonIgnore
-    private Rota rota;
-
-    @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonIgnore
     private Usuario usuario;
 
     private String comentario;
 
-    public Comentario(){
+    public Comentario() {
 
     }
 
-    public Comentario(Long id, Rota rota, Usuario usuario, String comentario) {
+    public Comentario(Long id, Usuario usuario, String comentario) {
         super();
         this.id = id;
-        this.rota = rota;
         this.usuario = usuario;
         this.comentario = comentario;
     }
