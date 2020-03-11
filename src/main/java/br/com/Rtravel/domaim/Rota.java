@@ -12,7 +12,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Data()
-@ToString(exclude = { "" })
+@ToString(of = { "id" })
 @EqualsAndHashCode(exclude = { "cidadeOrigem", "cidadeDestino", "paradas", "horarioSaida", "horarioChegada" })
 @Entity
 public class Rota implements Serializable {
