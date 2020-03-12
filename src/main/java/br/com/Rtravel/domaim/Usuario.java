@@ -20,7 +20,7 @@ import lombok.ToString;
 
 @Data()
 @ToString(exclude = { "" })
-@EqualsAndHashCode(exclude = { "name", "email", "senha", "perfis" })
+@EqualsAndHashCode(of = { "id" })
 @Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
