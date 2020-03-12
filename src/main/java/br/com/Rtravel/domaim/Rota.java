@@ -1,11 +1,9 @@
 package br.com.Rtravel.domaim;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,12 +12,12 @@ import java.util.List;
 import javax.persistence.*;
 
 @Data()
-@ToString(exclude = { "" })
-@EqualsAndHashCode(exclude = {"cidadeOrigem", "cidadeDestino", "paradas", "horarioSaida", "horarioChegada"})
+@ToString(of = { "id" })
+@EqualsAndHashCode(exclude = { "cidadeOrigem", "cidadeDestino", "paradas", "horarioSaida", "horarioChegada" })
 @Entity
 public class Rota implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,15 +34,16 @@ public class Rota implements Serializable {
 	@JoinTable(name = "ROTA_PARADA", joinColumns = @JoinColumn(name = "rota_id"), inverseJoinColumns = @JoinColumn(name = "parada_id"))
 	private List<Parada> paradas;
 
-	@JsonFormat(pattern="HH:mm:ss")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private Date horarioSaida;
 
-	@JsonFormat(pattern="HH:mm:ss")
+	@JsonFormat(pattern = "HH:mm:ss")
 	private Date horarioChegada;
 
-	public Rota() {}
+	public Rota() {
+	}
 
-	public Rota(Long id,Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
+	public Rota(Long id, Cidade cidadeOrigem, Cidade cidadeDestino, List<Parada> paradas) {
 		super();
 		this.id = id;
 		this.cidadeOrigem = cidadeOrigem;
